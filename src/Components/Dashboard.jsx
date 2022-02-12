@@ -1,13 +1,15 @@
 import React, { Component } from 'react';  
 import { NavLink, Outlet } from 'react-router-dom';
 import { Layout,  Menu } from 'antd';
+import { Auth } from 'aws-amplify';
 import {
   SearchOutlined,
   HomeOutlined,
-
+  PoweroffOutlined 
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
+
 
 
 class Dashboard extends Component {
@@ -28,10 +30,17 @@ class Dashboard extends Component {
     this.setState({ collapsed });
   };
 
+  
   render() {
    
     const { collapsed } = this.state;
-
+    async function signOut() {
+      try {
+          await Auth.signOut();
+      } catch (error) {
+          console.log('error signing out: ', error);
+      }
+    }
     return (
       <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
@@ -46,6 +55,9 @@ class Dashboard extends Component {
           <NavLink to="/hashtags" >
             Hashtags
           </NavLink>
+          </Menu.Item>
+          <Menu.Item key="3" onClick={signOut} icon={<PoweroffOutlined />} >
+            Sign Out
           </Menu.Item>
         </Menu>
       </Sider>

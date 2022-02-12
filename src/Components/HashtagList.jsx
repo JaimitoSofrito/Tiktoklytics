@@ -1,7 +1,6 @@
 import React from "react";
 import { List, Input, Progress} from 'antd';
-import { Skeleton, Divider } from 'antd';
-import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 
 const { Search } = Input;
